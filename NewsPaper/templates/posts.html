@@ -9,14 +9,29 @@
 <!-- В контенте на странице мы выводим все товары -->
 {% block content %}
 <h1>НОВОСТИ</h1>
-
+<hr>
+<a href="{% url 'post_search'  %}">Поиск</a>
+<a href="{% url 'post_create'  %}">Создать</a>
    <hr>
    {% if newsposts %}
-       <table>
-           <tr>
-               <td>Название</td>
-               <td>Дата создания</td>
-               <td>Текст</td>
+        <table border="1" cellpadding="5"
+              style="border-collapse: collapse;
+              border: 1px solid black; background-color: silver;" width="100%">
+            <col style="width:20%">
+        	<col style="width:20%">
+            <col style="width:40%">
+			<col style="width:10%">
+			<col style="width:10%">
+
+
+
+           <THEAD>
+           <tr style="background-color: gray; color: white">
+               <th>Название</th>
+               <th>Дата создания</th>
+               <th>Текст</th>
+			   <th></th>
+			   <th></th>
            </tr>
 
            <!-- Для каждой новости будет генерироваться новая строчка,
@@ -32,6 +47,8 @@
                <td>{{ queryset_newsposts.title }}</td>
                <td>{{ queryset_newsposts.dateCreation }}</td>
                <td>{{ queryset_newsposts.text|truncatechars:20 }}</td>
+			   <td> <a href="{{queryset_newsposts.id }}/update">Редактирование</a></td>
+               <td> <a href="{{queryset_newsposts.id }}/delete">Удаление</a></td>
 
            </tr>
            {% endfor %}
