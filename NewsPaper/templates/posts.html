@@ -10,9 +10,7 @@
 {% block content %}
 <h1>НОВОСТИ</h1>
 <hr>
-<a href="{% url 'post_search'  %}">Поиск</a>
-<a href="{% url 'post_create'  %}">Создать</a>
-   <hr>
+
    {% if newsposts %}
         <table border="1" cellpadding="5"
               style="border-collapse: collapse;
@@ -22,6 +20,7 @@
             <col style="width:40%">
 			<col style="width:10%">
 			<col style="width:10%">
+
 
 
 
@@ -49,6 +48,7 @@
                <td>{{ queryset_newsposts.text|truncatechars:20 }}</td>
 			   <td> <a href="{{queryset_newsposts.id }}/update">Редактирование</a></td>
                <td> <a href="{{queryset_newsposts.id }}/delete">Удаление</a></td>
+
 
            </tr>
            {% endfor %}
@@ -79,6 +79,7 @@
            ...
            <a href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
        {% endif %}
+
    {% endif %}
 
 {% endblock content %}

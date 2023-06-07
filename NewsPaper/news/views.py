@@ -1,7 +1,9 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from datetime import datetime
 from django.urls import reverse_lazy
-from django.shortcuts import get_object_or_404
+from django.contrib.auth.models import Group
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect, get_object_or_404, render
 from django.views.generic import (
     ListView, DetailView, CreateView, UpdateView, DeleteView
 )
@@ -99,8 +101,24 @@ class PostCategoryView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['is_not_subscriber'] = self.request.user not in self.category.subscribers.all()
-        context['postcategory'] = self.category
+        context['category'] = self.category
         return context
 
+@login_required
+def subscribe(request, pk):
+    user = request.user
+    category = Category.objects.get(id=pk)
+    category.subscribers.add(user)
 
+    message = 'Вы успешно подписались на рассылку новостей категории '
+    return render(request, 'subscribe.html', {'category': category, 'message': message})
+
+@login_required
+def unsubscribe(request, pk):
+    user = request.user
+    category = Category.objects.get(id=pk)
+    category.subscribers.remove(user)
+
+    message = 'Вы успешно подписались на рассылку новостей категории '
+    return render(request, 'subscribe.html', {'category': category, 'message': message})
 
