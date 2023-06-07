@@ -119,6 +119,6 @@ def unsubscribe(request, pk):
     category = Category.objects.get(id=pk)
     category.subscribers.remove(user)
 
-    message = 'Вы успешно подписались на рассылку новостей категории '
+    message = 'Вы успешно отписались от рассылки новостей категории '
     return render(request, 'subscribe.html', {'category': category, 'message': message})
 

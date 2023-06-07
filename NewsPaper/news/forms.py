@@ -6,5 +6,6 @@ class PostForm(forms.ModelForm):
        fields = [
            'author',
            'title',
+           'category',
            'text',
        ]
